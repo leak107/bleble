@@ -46,14 +46,14 @@ class UserLogin
     {
         $username = ask(<<<HTML
                 <span class="mr-1 bg-green px-1 text-black">
-                    type your username: 
+                    Username: 
                 </span>
             HTML
         );
 
         $password = ask(<<<HTML
                 <span class="mr-1 bg-green px-1 text-black">
-                    type your password: 
+                    Password: 
                 </span>
             HTML
         );

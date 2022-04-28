@@ -37,5 +37,11 @@ class Bleble
 
         $this->actions['login']();
         $this->actions['profile.print']();
+        $this->actions['course.print']($this->container->auth->getUser());
+
+        if ($this->container->auth->isLecturer()) {
+            $this->actions['course.create']();
+            $this->actions['course.print']($this->container->auth->getUser());
+        }
     }
 }
