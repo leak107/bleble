@@ -10,7 +10,9 @@ class User
         protected Profile $profile,
         protected ?string $username = null,
         protected ?string $password = null,
-    ) {}
+    ) {
+        $this->setPassword($password);
+    }
 
     public function getUsername(): ?string
     {
@@ -22,14 +24,19 @@ class User
         $this->username = $username;
     }
 
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
     public function setPassword(?string $password): void
     {
         $this->password = password_hash($password, PASSWORD_ARGON2I);
+    }
+
+    public function getFullName(): string
+    {
+        return ucwords($this->profile->firstName . $this->profile->lastName);
+    }
+
+    public function getBirthday(): string
+    {
+        return $this->profile->birthdate->format('d-F-Y');
     }
 
     public function verifyPassword(string $password): bool
