@@ -29,13 +29,18 @@ class Auth implements Stringable
                 HTML;
     }
 
+    public function getUser(): Student|Lecturer
+    {
+        return $this->user;
+    }
+
     public function isStudent(): bool
     {
-        return $user instanceof  Student;
+        return $this->authType === AuthType::Student;
     }
 
     public function isLecturer(): bool
     {
-        return $user instanceof  Lecturer;
+        return $this->authType === AuthType::Lecturer;
     }
 }

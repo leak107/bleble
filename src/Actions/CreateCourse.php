@@ -17,12 +17,15 @@ class CreateCourse
         $user = $this->container->auth;
         if ($user->isLecturer()) {
             [$name, $description, $capacity] = $this->collectInput();
-            $course = new Course($name, $description, $capacity, $user);
+
+            // declare course from inputted value
+            $course = new Course($name, $description, $capacity, $auth->getUser());
+
+            // push to courses
+            $this->container->courses->push($course);
         } else {
             render('<h2 class="mt-2 bg-danger p-5">You are prohibited to create a course</h2>');
         }
-
-        $this->container->courses->push($course);
     }
 
     private function collectInput(): ?array
