@@ -18,15 +18,7 @@ class Auth implements Stringable
 
     public function __toString()
     {
-        $name = $this->user->getFullName();
-        $birthday = $this->user->getBirthday();
-
-        return <<<HTML
-                    <ul>
-                        <li>Name      : $name</li>
-                        <li>Birthday  : $birthday</li>
-                    </ul>
-                HTML;
+        return (string) $this->user;
     }
 
     public function getUser(): Student|Lecturer

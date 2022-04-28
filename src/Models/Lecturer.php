@@ -4,23 +4,22 @@ namespace App\Models;
 
 use App\Models\User\Profile;
 use Illuminate\Support\Collection;
+use Stringable;
 
-class Lecturer extends User
+class Lecturer extends User implements Stringable
 {
-    protected Collection $courses;
-
-    public function __construct(
-        Profile $profile,
-        ?string $username = null,
-        ?string $password = null,
-    ) {
-        parent::__construct($profile, $username, $password);
-
-        $this->courses = new Collection();
-    }
-
-    public function attachCourse(Course $course): void
+    public function __toString()
     {
-        $this->courses->push($course);
+        $name = $this->getFullName();
+        $birthday = $this->getBirthday();
+
+        return <<<HTML
+        <ul>
+            <li>Role      : Lecturer</li>
+            <li>Name      : $name</li>
+            <li>Birthday  : $birthday</li>
+        </ul>
+        HTML;
+
     }
 }

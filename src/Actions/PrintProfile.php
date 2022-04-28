@@ -13,6 +13,7 @@ class PrintProfile
 
     public function __invoke(): void
     {
+        render("<strong class='mt-1'>➡ Profile: </strong>");
         render($this->container->auth);
     }
 }

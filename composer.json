@@ -10,7 +10,9 @@
         "php": "^8.1",
         "nunomaduro/termwind": "^1.8.0",
         "illuminate/collections": "^9.10",
-        "nesbot/carbon": "^2.57"
+        "nesbot/carbon": "^2.57",
+        "illuminate/support": "^9.10",
+        "ramsey/uuid": "^4.3"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest"

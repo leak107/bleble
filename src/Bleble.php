@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Actions\CreateCourse;
+use App\Actions\PrintCourse;
 use App\Actions\PrintProfile;
 use App\Actions\UserLogin;
 use App\Kinds\Container;
@@ -12,7 +14,6 @@ use function Termwind\{render, ask};
 class Bleble
 {
     protected Container $container;
-    protected ?Student $student = null;
 
     private array $actions;
 
@@ -22,6 +23,8 @@ class Bleble
         $this->actions = [
             'login' => new UserLogin($this->container),
             'profile.print' => new PrintProfile($this->container),
+            'course.create' => new CreateCourse($this->container),
+            'course.print' => new PrintCourse(),
         ];
     }
 

@@ -4,7 +4,7 @@ namespace App\Actions;
 
 use App\Kinds\Container;
 use App\Models\Course;
-use App\Models\Lecturer;
+use function Termwind\{render, ask};
 
 class CreateCourse
 {
@@ -12,10 +12,11 @@ class CreateCourse
         protected Container $container,
     ) {}
 
-    public function __invoke() {
+    public function __invoke(): void
+    {
+        $auth = $this->container->auth;
 
-        $user = $this->container->auth;
-        if ($user->isLecturer()) {
+        if ($auth->isLecturer()) {
             [$name, $description, $capacity] = $this->collectInput();
 
             // declare course from inputted value
