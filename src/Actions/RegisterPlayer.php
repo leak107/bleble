@@ -28,7 +28,7 @@ class RegisterPlayer
 
         render(<<<HTML
             <p>
-                Hello, Player {$name}, Your symbol is $playerSymbol
+                Hello, Player {$name}, Your character is $symbol
             </p>
         HTML
         );
