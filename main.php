@@ -1,15 +1,9 @@
 <?php
 require_once './vendor/autoload.php';
 
-//use App\Bleble;
-//
-//$app = new Bleble();
-//$app->seed();
-//
-//$app->run();
+use App\TicTacToe;
 
-use App\Tictac;
+$app = new TicTacToe();
 
-$app = new Tictac();
-
+/** @noinspection PhpUnhandledExceptionInspection */
 $app->run();

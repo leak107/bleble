@@ -1,35 +1,21 @@
 <?php
 namespace App\Kinds;
 
-use App\Kinds\Container\Auth;
-use App\Models\Lecturer;
-use App\Models\Student;
-use Illuminate\Support\Collection;
+use App\Kinds\Container\Game;
+use ReflectionClass;
+use ReflectionParameter;
+use RuntimeException;
 
 class Container
 {
-    /**
-     * @var \Illuminate\Support\Collection<int, \App\Models\Lecturer>
-     */
-    public Collection $lecturers;
-
-    /**
-     * @var \Illuminate\Support\Collection<int, \App\Models\Course>
-     */
-    public Collection $courses;
-
-    /**
-     * @var \Illuminate\Support\Collection<int, \App\Models\Student>
-     */
-    public Collection $students;
-
-    public ?Auth $auth = null;
+    protected array $providers = [];
+    protected array $actions = [];
 
     public function __construct()
     {
-        $this->lecturers = new Collection();
-        $this->courses = new Collection();
-        $this->students = new Collection();
+        $this->providers = [
+            Game::class => new Container\Game(),
+        ];
     }
 
     private static ?Container $instance = null;
@@ -43,8 +29,53 @@ class Container
         return  self::$instance;
     }
 
-    public function setAuthenticatedUser(Student|Lecturer $authenticatedUser): void
+    public function addActions(string $name, object|callable $value): void
     {
-        $this->auth = new Auth($authenticatedUser);
+        $this->actions[$name] = $value;
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function runAction(string $name): mixed
+    {
+        if (! isset($this->actions[$name])) {
+            throw new RuntimeException("Action {$name} not found");
+        }
+
+        return $this->call($this->actions[$name]);
+    }
+
+    /**
+     * @throws \ReflectionException
+     */
+    protected function call(object|callable $action): mixed
+    {
+        $reflector = new ReflectionClass($action);
+
+        if ($reflector->hasMethod('__invoke')) {
+            $method = $reflector->getMethod('__invoke');
+
+            $parameters = collect($method->getParameters())
+                ->map(fn (ReflectionParameter $parameter) => $this->resolve($parameter->getType()?->getName()))
+                ->toArray();
+
+            return $action(...$parameters);
+        }
+
+        return null;
+    }
+
+    protected function resolve(string $className): mixed
+    {
+        if (array_key_exists($className, $this->providers)) {
+            return $this->providers[$className];
+        }
+
+        if (class_exists($className)) {
+            return new $className();
+        }
+
+        return null;
     }
 }
