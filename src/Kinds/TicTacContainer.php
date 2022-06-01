@@ -2,14 +2,13 @@
 namespace App\Kinds;
 
 use App\Kinds\Container\Auth;
-use App\Models\Lecturer;
-use App\Models\Student;
+use App\Models\Player;
 use Illuminate\Support\Collection;
 
 class TicTacContainer
 {
     /**
-     * @var \Illuminate\Support\Collection<int, \App\Models\Lecturer>
+     * @var \Illuminate\Support\Collection<int, \App\Models\Player>
      */
     public Collection $players;
 
