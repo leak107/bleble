@@ -63,9 +63,10 @@ class GameLooper
     protected function fill(Container\Game $game): void
     {
         $activePlayer = $game->getActivePlayer();
+        $name = $activePlayer->getName();
 
         $characterSymbol = $activePlayer->getCharacterSymbol();
-        $cellNumber = ask("<span class=\"mr-1\">Player [$characterSymbol] Which cell do you want to fill ? </span>");
+        $cellNumber = ask("<span class=\"mr-1\"><strong class=\"bg-{$activePlayer->getCharacterColor()} text-gray-900\">$name</strong> [$characterSymbol] Which cell do you want to fill ? </span>");
 
        $game->changeState($activePlayer, $cellNumber);
     }

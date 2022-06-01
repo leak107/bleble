@@ -21,14 +21,14 @@ class RegisterPlayer
     {
         $name = ask(<<<HTML
            <span class="mr-1">
-               What will be your name, Player $playerNumber ?
+               Your name please, before we start playing. I am
            </span>
         HTML
         );
 
         render(<<<HTML
             <p>
-                Hello, Player {$name}, Your character is $symbol
+                Hello {$name}!, You are $symbol
             </p>
         HTML
         );

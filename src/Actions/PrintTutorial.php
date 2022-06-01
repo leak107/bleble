@@ -61,7 +61,7 @@ class PrintTutorial
 
         render(<<<'HTML'
             <p>
-                Let's decide who will be player one and who will be player two.
+                Before we start, give me both of your name please.
                 <br>
                 <br>
                 <span class="bg-yellow-300 text-gray-900">Game On!</span>
